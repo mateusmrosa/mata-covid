@@ -1,0 +1,22 @@
+.covid1{
+    width: 70px;
+    height: 70px;
+}
+
+.covid2{
+    width: 100px;
+    height: 100px;
+}
+
+.covid3{
+    width: 150px;
+    height: 150px;
+}
+
+.ladoA{
+    transform: scaleX(1);
+}
+
+.ladoA{
+    transform: scaleX(-1);
+}
