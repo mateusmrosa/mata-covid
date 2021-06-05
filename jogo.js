@@ -1,6 +1,22 @@
 
 var altura = 0
 var largura = 0
+var vidas = 1
+var tempo = 15
+var criaCovidTempo = 1500
+
+var nivel = window.location.search
+nivel = nivel.replace('?', '')
+
+if (nivel === 'normal')
+    criaCovidTempo = 1500
+else if (nivel === 'dificil')
+    criaCovidTempo = 1000
+else if (nivel === 'chucknorris')
+    criaCovidTempo = 750
+
+console.log(nivel + " " + criaCovidTempo)
+
 
 function ajustaTamanhoPalcoJogo() {
     altura = window.innerHeight;
@@ -10,12 +26,34 @@ function ajustaTamanhoPalcoJogo() {
 
 ajustaTamanhoPalcoJogo()
 
+
+var cronometro = setInterval(function () {
+    tempo -= 1
+    if (tempo < 0) {
+        clearInterval(cronometro)
+        clearInterval(criaCovid)
+        window.location.href = "vitoria.html"
+    } else {
+        document.getElementById('cronometro').innerHTML = tempo
+    }
+
+}, 1000)
+
 function posicaoRandoica() {
 
     //remover o covid caso ele exista
 
     if (document.getElementById('covid')) {
         document.getElementById('covid').remove()
+
+        //console.log('elemento seleciondo foi: ' + vidas)
+        if (vidas > 3) {
+            window.location.href = "fim_de_jogo.html"
+        } else {
+            document.getElementById('v' + vidas).src = "imagens/coracao_vazio.png"
+            vidas++;
+        }
+
     }
 
     var posicaoX = Math.floor(Math.random() * largura) - 90
@@ -34,6 +72,9 @@ function posicaoRandoica() {
     covid.style.top = posicaoY + 'px'
     covid.style.position = 'absolute'
     covid.id = 'covid'
+    covid.onclick = function () {
+        this.remove()
+    }
 
     document.body.appendChild(covid)
 
